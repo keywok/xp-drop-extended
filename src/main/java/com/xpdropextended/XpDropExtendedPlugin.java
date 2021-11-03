@@ -78,15 +78,21 @@ public class XpDropExtendedPlugin extends Plugin {
 
 	private void hideMaxXPIcon(Widget xpDrop) {
 		Widget text = xpDrop.getChild(0);
-		Widget icon = xpDrop.getChild(1);
-		if (text == null || icon == null) {
-			return;
-		}
-		if (text.getText().startsWith("<img=11>")) {
+		if (text.getText().startsWith("<img=11>"))
+		{
 			text.setText(text.getText().substring(9));
 			text.revalidate();
-			icon.setOriginalX(14);
-			icon.revalidate();
+			Widget[] children = xpDrop.getChildren();
+			for (int i = 1; i < children.length; i++)
+			{
+				Widget child = children[i];
+				if (child == null)
+				{
+					continue;
+				}
+				child.setOriginalX(child.getOriginalX() + 14);
+				child.revalidate();
+			}
 		}
 	}
 }
